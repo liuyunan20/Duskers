@@ -1,13 +1,12 @@
 class Robot:
     def __init__(self):
         self.robot = '''
-   ┼
- ▄█ █▄
-▐█▄▄▄█▌
- █ █ █ 
- ║ ║ ║
- 
- '''
+  ╬   ╬╬╬╬╬╬╬   ╬     ╬   ╬╬╬╬╬╬╬   ╬     ╬   ╬╬╬╬╬╬╬   ╬   
+  ╬╬╬╬╬     ╬╬╬╬╬     ╬╬╬╬╬     ╬╬╬╬╬     ╬╬╬╬╬     ╬╬╬╬╬   
+      ╬╬╬╬╬╬╬             ╬╬╬╬╬╬╬             ╬╬╬╬╬╬╬       
+     ╬╬╬   ╬╬╬           ╬╬╬   ╬╬╬           ╬╬╬   ╬╬╬      
+     ╬       ╬           ╬       ╬           ╬       ╬      
+'''
 
 
 # Print title
@@ -27,9 +26,9 @@ class Menu:
         ''')
         print("[Play]", "[High] Scores", "[Help]", "[Exit]", sep="\n")
 
-    def print_log(self,robot):
+    def print_log(self, robot):
         print("║════════════════════════════════════════════════════════════════════════════════║")
-        print(robot.robot * 3, sep=" "*5)
+        print(robot.robot)
         print('''║════════════════════════════════════════════════════════════════════════════════║
 ║                  [Ex]plore                          [Up]grade                  ║
 ║                  [Save]                             [M]enu                     ║
@@ -45,21 +44,25 @@ class Menu:
                              ║[Exit] game             ║
                              ║════════════════════════║''')
 
-    def game_menu(self):
+    def game_menu(self, robot):
         self.print_game_menu()
         while True:
             print("\nYour command:")
             game_menu_option = input()
             if game_menu_option.lower() == "exit":
                 self.exit()
+                break
             elif game_menu_option.lower() == "save":
                 self.save()
+                break
             elif game_menu_option.lower() == "back":
-                return self.play()
+                self.play(robot)
+                break
             elif game_menu_option.lower() == "main":
-                return self.main_menu()
+                self.main_menu(robot)
+                break
 
-    def play(self):
+    def play(self, robot):
         print("Enter your name:")
         name = input()
         print(f"\nGreetings, commander {name}!")
@@ -70,27 +73,32 @@ class Menu:
 Your command:''')
             begin_option = input()
             if begin_option.lower() == "yes":
-                self.print_log()
+                self.print_log(robot)
                 print("\nYour command:")
                 play_option = input()
                 if play_option.lower() == "m":
-                    self.game_menu()
+                    self.game_menu(robot)
+                    break
                 elif play_option.lower() == "save":
                     self.save()
+                    break
                 elif play_option.lower() == "up":
-                    return self.upgrade()
+                    self.upgrade()
+                    break
                 elif play_option.lower() == "ex":
-                    return self.explore()
+                    self.explore()
+                    break
                 else:
                     print("Invalid input")
             elif begin_option.lower() == "no":
                 print("How about now.")
             elif begin_option.lower() == "main":
-                return self.main_menu()
+                self.main_menu(robot)
+                break
             else:
                 print("Invalid input")
 
-    def high(self):
+    def high(self, robot):
         while True:
             print('''No scores to display.
 [Back]
@@ -98,7 +106,7 @@ Your command:''')
 Your command:''')
             back = input()
             if back.lower() == "back":
-                self.main_menu()
+                self.main_menu(robot)
                 break
             else:
                 print("Invalid input")
@@ -118,16 +126,18 @@ Your command:''')
     def explore(self):
         print("Coming SOON! Thanks for playing!")
 
-    def main_menu(self):
+    def main_menu(self, robot):
         self.print_title()
         while True:
-            print("Your command:")
+            print("\nYour command:")
             self.start_option = input()
             print()
             if self.start_option.lower() == "play":
-                self.play()
+                self.play(robot)
+                break
             elif self.start_option.lower() == "high":
-                self.high()
+                self.high(robot)
+                break
             elif self.start_option.lower() == "exit":
                 self.exit()
                 break
@@ -138,8 +148,9 @@ Your command:''')
                 print("Invalid input")
 
 
+my_robot = Robot()
 my_menu = Menu()
-my_menu.main_menu()
+my_menu.main_menu(my_robot)
 
 
 
